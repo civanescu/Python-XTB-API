@@ -536,7 +536,7 @@ class XTB:
         temp = temp.total_seconds()
         temp = float(temp)
         if temp>=8.0:
-            connect()
+            self.connect()
         self.exec_start = self.get_time()
 
     def is_open(self, symbol):
@@ -550,7 +550,7 @@ class XTB:
         
     def connect(self):
         try:
-            self.ws=websocket.create_connection("wss://ws.xtb.com/demo")
+            self.ws=websocket.create_connection("wss://ws.xtb.com/real")
             #Success
             return True
         except:
@@ -567,6 +567,8 @@ class XTB:
 
     def send(self, msg):
         self.is_on()
+        print("Send", msg)
         self.ws.send(msg)
         result = self.ws.recv()
+        print(result)
         return result+"\n"
